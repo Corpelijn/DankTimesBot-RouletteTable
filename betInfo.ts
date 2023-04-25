@@ -67,6 +67,10 @@ export class BetInfo {
                     [`${digit}+${digit + 4}`, `${digit}-${digit + 4}`],
                     [digit, digit + 1, digit + 3, digit + 4],
                     9));
+                betInfo.push(new BetInfo(
+                    [`${digit + 1}+${digit + 5}`, `${digit + 1}-${digit + 5}`],
+                    [digit + 1, digit + 2, digit + 4, digit + 5],
+                    9));
             }
         }
 
@@ -95,7 +99,7 @@ export class BetInfo {
             3));
         betInfo.push(new BetInfo(
             [`3D`, `D25`, `25-36`, `12D`],
-            [25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36],
+            [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36],
             3));
 
         // Add the Snake bet

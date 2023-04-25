@@ -26,7 +26,7 @@ export class Plugin extends AbstractPlugin {
     public statistics = new Statistics();
 
     constructor() {
-        super("Roulette Table Plugin", "1.0.0")
+        super("Roulette Table Plugin", "1.0.1")
 
         this.subscribeToPluginEvent(PluginEvent.BotStartup, this.LOAD.bind(this));
         this.subscribeToPluginEvent(PluginEvent.BotShutdown, this.SAVE.bind(this));
