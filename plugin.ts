@@ -15,7 +15,7 @@ export class Plugin extends AbstractPlugin {
     public static readonly BET_CMD = ["rbet"];
     public static readonly BETS_CMD = ["rbets"];
     public static readonly INFO_CMD = ["roulette", "rinfo"];
-    public static readonly STATS_CMD = ["rstatistics", "rstat"];
+    public static readonly STATS_CMD = ["rstatistics", "rstat", "rstats"];
 
     // Settings
     public static readonly SETTING_DURATION_GAME = 'roulette.gameduration';
@@ -26,10 +26,9 @@ export class Plugin extends AbstractPlugin {
     public statistics = new Statistics();
 
     constructor() {
-        super("Roulette Table Plugin", "1.0.1")
+        super("Roulette Table Plugin", "1.0.2")
 
-        this.subscribeToPluginEvent(PluginEvent.BotStartup, this.LOAD.bind(this));
-        this.subscribeToPluginEvent(PluginEvent.BotShutdown, this.SAVE.bind(this));
+        this.subscribeToPluginEvent(PluginEvent.ChatReset, this.RESET.bind(this));
         BetInfo.init();
     }
 
@@ -133,15 +132,8 @@ export class Plugin extends AbstractPlugin {
         return `♠️♥️ Casino Roulette Balance ♣️♦️\n${this.statistics.casinoBalance}`;
     }
 
-    private SAVE(): any {
-        this.saveDataToFile(Plugin.FILE_STORAGE, this.statistics.toJSON());
-    }
-
-    private LOAD(): any {
-        let obj = this.loadDataFromFile(Plugin.FILE_STORAGE);
-        if (obj !== null) {
-            this.statistics = Statistics.fromJSON(obj);
-        }
+    private RESET(): any {
+        // Do nothing
     }
 
     private getActiveGame(chat: Chat) {
