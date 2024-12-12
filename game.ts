@@ -19,7 +19,7 @@ export class Game {
     public addBet(user: User, amount: number, bet: BetInfo): string {
         let message = ``;
         if (this._bets.length === 0) {
-            let gameDuration = +this._chat.getSetting(Plugin.SETTING_DURATION_GAME);
+            let gameDuration = this._chat.getSetting<number>(Plugin.SETTING_DURATION_GAME);
             message = `📢 @${user.name} is starting a new game of Roulette, ending in ${gameDuration} seconds...\n` +
                 `Place a bet within ${gameDuration} seconds to participate.\n\n`;
             setTimeout(this.endGame, gameDuration * 1000, this);
@@ -43,6 +43,8 @@ export class Game {
             color = `🟩`;
         }
         let message = `The winning number is <code>${winNumber.toString().replace("100", "00")}</code> ${color}\n`;
+
+        game._plugin.statistics.addNumber(winNumber, color);
 
         let winningBets = game._bets.filter(b => b.betInfo.numbers.indexOf(winNumber) !== -1);
         if (winningBets.length > 0) {

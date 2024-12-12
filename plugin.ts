@@ -26,7 +26,7 @@ export class Plugin extends AbstractPlugin {
     public statistics = new Statistics();
 
     constructor() {
-        super("Roulette Table Plugin", "1.0.2")
+        super("Roulette Table Plugin", "1.0.3")
 
         this.subscribeToPluginEvent(PluginEvent.ChatReset, this.RESET.bind(this));
         BetInfo.init();
@@ -128,7 +128,13 @@ export class Plugin extends AbstractPlugin {
         return '';
     }
 
-    private STATS():any {
+    private STATS(chat: Chat, user: User, msg: TelegramBot.Message, match: string):any {
+        const params = match.split(' ').filter(i => i); 
+
+        if(params.includes('numbers')) {
+            return `Roulette number distribution (last 400)\n\n<code>${this.statistics.getNumberDistribution()}</code>`;
+        }
+
         return `♠️♥️ Casino Roulette Balance ♣️♦️\n${this.statistics.casinoBalance}`;
     }
 
